@@ -1,0 +1,85 @@
+{%extends "classifieds/base.html"%}
+{%load static%}
+<head>
+
+	<title>{%block title%}SJSU Post{%endblock%}</title>
+
+</head>
+
+<body>
+
+	{%block nav%} 
+	<nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            
+          </button>
+          <a class="navbar-brand" href="/classifieds/">SJSU Post</a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Find it!</button>
+            {% if user.is_active%}
+            <a href="/classifieds/add_listing"><button type="button" class="btn btn-sm btn-success">Add a Listing</button></a>
+            {%endif%}
+          </form>
+
+          <p class="navbar-text navbar-right">{%if user.is_active%}Signed in as <a href="/account/settings" class="navbar-link">{{user.username}}</a><a href="/account/logout">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
+        </div>
+      </div>
+
+    </nav>
+	{%endblock%}
+
+	{%block body%}
+
+        <br />
+        
+        
+        <ul>
+        	{%regroup listings by category.name as listings_list%}
+        	{%for category in listings_list%}
+        	<div class="col-xs-6 col-sm-3">
+	        	<div class="panel panel-info" style="width:300px;">
+					<div class="panel-heading">
+			            <h3 class="panel-title"><a href = "/classifieds/category/{{category.grouper}}">{{ category.grouper }}</a></h3>
+			        </div>
+			    </div>
+
+			    {%if listings%}
+	        	{%for listing in category.list%}
+	        		
+	        		<div class="panel-body"><a href = "/classifieds/category/{{category.grouper}}/{{listing.title}}">{{listing.title}}</a></div>
+	        			
+	        	{%endfor%}
+
+	        	{%else%}
+	        		<div class="panel panel-alert">Sorry, nothing here. </div>
+	        	{%endif%}
+	        </div>
+	        {%endfor%}
+	    </ul>
+	    
+	        
+
+	{%endblock%}
+
+{%block footer%}
+<div class="footer">
+	<div class="container">
+	        <p class="text-muted">Created with &hearts; by Henry Spivey. Suggestions, questions, comments or concerns? <a href="/contact">Click Here!</a></p>
+	        
+	</div>
+</div>
+
+
+{%endblock%}
+</body>
+
+</html>
+

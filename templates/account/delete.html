@@ -1,0 +1,39 @@
+{% extends "account/settings.html" %}
+
+{% load i18n %}
+{% load url from future %}
+{%load bootstrap%}
+
+{%block title%} Delete Account {%endblock%}
+
+{% block body %}
+   
+      <div class="col-md-3 columns">
+                    
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Settings</strong></div>
+            <div class="list-group">
+                <a class="list-group-item account-settings" href="/account/settings/">Account</a>
+                <a class="list-group-item account-password" href="/account/password/">Change Password</a>
+                <a class="list-group-item account-delete" href="/account/delete/">Delete Account</a>
+            </div>
+        </div>
+
+        </div>
+     
+	<div class="col-md-5">
+	    <form method="post" action="{% url "account_delete" %}" autocapitalize="off">
+	        <legend>{% trans "Delete Account" %}</legend>
+	           <fieldset>
+	           {% csrf_token %}
+               {{ form.as_p }}
+               <p>If you go ahead and delete your account, your information will be <b>expunged within {{ ACCOUNT_DELETION_EXPUNGE_HOURS }} hours</b>.</p>
+
+               <button type="submit" class="btn btn-danger">Delete My Account</button>
+	        </fieldset>
+	    </form>
+
+	</div>
+
+    
+{% endblock %}
