@@ -37,3 +37,114 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+
+.books {
+          width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+.books:before {
+  content:"\e043";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+
+}
+
+.electronics {
+         width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+
+.electronics:before{
+  content:"\e145";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+}
+
+.jobs {
+          width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+.jobs:before{
+  content:"\e139";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+
+
+}
+
+
+.haus {
+          width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+.haus:before
+{
+  content:"\e021";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+
+}
+
+.other {
+          width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+.other:before{
+
+  content:"\e011";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+
+
+}
+
+
+.events {
+          width:250px;
+          height:200px;
+         background-color: rgba(0,0,0,0.82);
+         color:#FFF;
+         font-family: "Montserrat", serif;
+         padding-top: 80px;
+         text-align: center;
+}
+.events:before{
+
+  content:"\e109";
+  font-family:"Glyphicons Halflings";
+  color:#FFF;
+  font-size: 2em;
+
+
+}

@@ -3,7 +3,7 @@
 <head>
 
 	<title>{%block title%}SJSU Post{%endblock%}</title>
-
+	<link href = "{%static 'js/holder.js'%}" ></link>
 </head>
 
 <body>
@@ -39,31 +39,47 @@
 	{%block body%}
 
         <br />
-        
-        
         <ul>
-        	
-        	{%regroup listings by category.name as listings_list%}
-        	{%for category in listings_list%}
-        	<div class="col-xs-6 col-sm-3">
-	        	<div class="panel panel-info" style="width:300px;">
-					<div class="panel-heading">
-			            <h3 class="panel-title"><a href = "/classifieds/category/{{category.grouper}}">{{ category.grouper }}</a></h3>
-			        </div>
-			    </div>
+	        <div class="row">
+	        	 <div class="col-md-4">
+			         <li style="list-style:none;">
+			         	<div class="books"><br>Books</div>  
+			         </li>
+			     </div>
 
-			    {%if listings%}
-	        	{%for listing in category.list%}
-	        		
-	        		<div class="panel-body"><a href = "/classifieds/category/{{category.grouper}}/{{listing.title}}">{{listing.title}}</a></div>
-	        			
-	        	{%endfor%}
+			     <div class="col-md-4">
+			         <li style="list-style:none;">
+			         	<div class="electronics"><br>Electronics</div>  
+			         </li>
+			     </div>
 
-	        	{%else%}
-	        		<div class="panel panel-alert">Sorry, nothing here. </div>
-	        	{%endif%}
-	        </div>
-	        {%endfor%}
+			     <div class="col-md-4">
+			         <li style="list-style:none;">
+			         	<div class="haus"><br>Housing & Furniture</div>  
+			         </li>
+			     </div>
+
+			     <div class="col-md-4">
+			         <li style="list-style:none;">
+			         	<div class="jobs"><br>Jobs</div>  
+			         </li>
+			     </div>
+
+			     <div class="col-md-4">
+
+			         <li style="list-style:none;">
+			         	<div class="other"><br>Other</div>  
+			         </li>
+			     </div>
+
+			     <div class="col-md-4">
+			          <li style="list-style:none;">
+			         	<div class="events"><br>Events</div>  
+			         </li>
+			     </div>
+		 
+ 
+
 	        
 	    </ul>
 	    

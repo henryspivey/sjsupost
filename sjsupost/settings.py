@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     "pinax_theme_bootstrap",
     "sjsupost.profiles",
     "sorl.thumbnail",
+    'sortable_listview',
     
 
 

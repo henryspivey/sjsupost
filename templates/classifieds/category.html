@@ -32,11 +32,26 @@
     {%block body%}
         <h1 >{{ category_name }}</h1>
         {% if category %}
-            {% if ads %}
+            {% if listings %}
+            <div class="row">
             <ul >
-                {% for ad in ads %}
-                <li><a href="{{ad.title}}/">{{ ad.title }}</a></li>
+                {% for listing in listings %}
+                <div class="col-xs-6 col-sm-4">
+                <li style="list-style:none;">
+                    <a href="/classifieds/category/{{category_name}}/{{listing.title}}" style="hover:none;">
+                        <div class="panel panel-info">
+                            <div class="panel-heading" style="text-align:center;">{{listing.title}}</div>
+                                <div class="panel-body">
+                                     {{listing.title}}
+                                </div>
+                        </div>
+                    </a>
+
+                </li>
+                </div>   
+
                 {% endfor %}
+                </div>
             </ul>
             {% else %}
                 <strong>No ads currently in {{category_name}}.</strong>
@@ -53,3 +68,7 @@
         </div>
     </div>
     {%endblock%}
+
+
+
+

@@ -26,9 +26,11 @@ def index(request):
 
 	ad_list = ad.objects.order_by('-id')
 	
-	listings_by_title = model_for_individual_listing.objects.order_by('-category')
+	listings_by_title = model_for_individual_listing.objects.all().order_by('-category')
+
+
 	
-	context_dict = {'categories': category_list, 'ads':ad_list, 'listings':listings_by_title}
+	context_dict = {'categories': category_list, 'ads':ad_list, 'listings':listings_by_title,}
 
 	
 
@@ -62,10 +64,10 @@ def category(request,category_name_url):
 
 		category = category_of_classifieds.objects.get(name=category_name)
 
-		ads = ad.objects.filter(title=category) # filter the ads per their category
+		listings = model_for_individual_listing.objects.filter(category=category)[:5] # filter the ads per their category
 
 		# add the ads and the category to what we'll pass in the template
-		context_dict['ads'] = ads
+		context_dict['listings'] = listings
 
 		context_dict['category'] = category
 
@@ -92,10 +94,10 @@ def listingz(request,category_name_url,listing_name_url):
 	category_name = urllib.unquote(category_name_url).decode('utf8')
 
 
-	listing_desc = model_for_individual_listing.objects.order_by('-description').get(id=5)
+	# listing_desc = model_for_individual_listing.objects.order_by('-description').get(id=5)
 
 
-	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_desc':listing_desc}
+	context_dict = {'listing_name':listing_name,'category_name':category_name}
 
 	
 	return render_to_response('classifieds/listing.html',context_dict,context)
