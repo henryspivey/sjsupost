@@ -55,7 +55,7 @@
 
         <div class="col-md-5">
             <form method="POST" action="{% url "account_settings" %}">
-                <legend>Account</legend>
+                <legend>Change Email</legend>
                 {% csrf_token %}
                 {{ form|bootstrap }}
                 <button class="btn btn-primary" type="submit">Save</button>

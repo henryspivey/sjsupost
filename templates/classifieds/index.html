@@ -42,6 +42,7 @@
         
         
         <ul>
+        	
         	{%regroup listings by category.name as listings_list%}
         	{%for category in listings_list%}
         	<div class="col-xs-6 col-sm-3">
@@ -63,6 +64,7 @@
 	        	{%endif%}
 	        </div>
 	        {%endfor%}
+	        
 	    </ul>
 	    
 	        

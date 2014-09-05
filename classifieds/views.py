@@ -23,9 +23,12 @@ def index(request):
     # Order the categories by no. likes in descending order.
     # Place the list in our context_dict dictionary which will be passed to the template engine.
 	category_list = category_of_classifieds.objects.order_by('-name')
+
 	ad_list = ad.objects.order_by('-id')
-	listing_list = model_for_individual_listing.objects.order_by('-title')
-	context_dict = {'categories': category_list, 'ads':ad_list, 'listings':listing_list}
+	
+	listings_by_title = model_for_individual_listing.objects.order_by('-category')
+	
+	context_dict = {'categories': category_list, 'ads':ad_list, 'listings':listings_by_title}
 
 	
 
@@ -74,19 +77,27 @@ def listingz(request,category_name_url,listing_name_url):
 
 	context = RequestContext(request)
 
-	listing_name =  encode_url(listing_name_url)
+	listing_name =  urllib.unquote(listing_name_url).decode('utf8')
 
-	context_dict = {'listing_name':listing_name}
+
+	"""
+	category_name = urllib.unquote(category_name_url).decode('utf8')
+
+	category_of_listing = model_for_individual_listing.objects.order_by('-category')
+
+	listing_desc = model_for_individual_listing.objects.order_by('-description')
+	"""
+
+
+	category_name = urllib.unquote(category_name_url).decode('utf8')
+
+
+	listing_desc = model_for_individual_listing.objects.order_by('-description').get(id=5)
+
+
+	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_desc':listing_desc}
 
 	
-
-	"""
-	try:
-		url = ad.objects.get(url=listing_name_url)
-		context_dict['url'] = url
-	except ad.DoesNotExist:
-		pass
-	"""
 	return render_to_response('classifieds/listing.html',context_dict,context)
 	
 
