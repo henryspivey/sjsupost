@@ -148,3 +148,7 @@ code {
 
 
 }
+
+a:hover {
+    text-decoration: none;
+}

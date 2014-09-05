@@ -53,8 +53,7 @@ def category(request,category_name_url):
 
 	# change underscores in the category name to spaces
 	# makes it easier to work with
-	category_name = encode_url(category_name_url)
-
+	category_name = urllib.unquote(category_name_url).decode('utf8')
 	
 
 	# start building a dictionary to pass the category name into the template
@@ -64,7 +63,7 @@ def category(request,category_name_url):
 
 		category = category_of_classifieds.objects.get(name=category_name)
 
-		listings = model_for_individual_listing.objects.filter(category=category)[:5] # filter the ads per their category
+		listings = model_for_individual_listing.objects.filter(category=category) # filter the ads per their category
 
 		# add the ads and the category to what we'll pass in the template
 		context_dict['listings'] = listings
