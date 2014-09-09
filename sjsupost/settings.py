@@ -53,6 +53,8 @@ INSTALLED_APPS = (
     "sjsupost.profiles",
     "sorl.thumbnail",
     'sortable_listview',
+    'haystack',
+    
     
 
 
@@ -124,3 +126,11 @@ EMAIL_PORT = 587
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
 
+
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'
+    }
+}

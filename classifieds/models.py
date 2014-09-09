@@ -19,9 +19,29 @@ class ad(models.Model):
 		return self.title
 
 class model_for_individual_listing(models.Model):
+
+	LIKE_NEW = 1
+	ACCEPTABLE =2 
+	GOOD =3
+	FAIR = 4
+	POOR = 5
+
+	CHOICES_FOR_CONDITION = (
+			(LIKE_NEW,"Like new"),
+			(ACCEPTABLE, "Acceptable"),
+			(GOOD, "Good"),
+			(FAIR, "Fair"),
+			(POOR, "Poor")
+		)
+	
 	category= models.ForeignKey(category_of_classifieds)
-	title = models.CharField(max_length=1000,unique=True)
+	title = models.CharField(max_length=1000,unique=False)
+
 	description =  models.CharField(max_length=1000)
+	cost = models.IntegerField()
+	condition = models.CharField(max_length=10)
+	docfile = models.CharField(max_length=10)
+
 
 	def __unicode__(self):
 		return self.title

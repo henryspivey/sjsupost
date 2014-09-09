@@ -6,6 +6,7 @@ from classifieds.forms import AdForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 import urllib
+from classifieds.bing_search import run_query
 
 
 def encode_url(url):
@@ -80,23 +81,17 @@ def listingz(request,category_name_url,listing_name_url):
 
 	listing_name =  urllib.unquote(listing_name_url).decode('utf8')
 
-
-	"""
-	category_name = urllib.unquote(category_name_url).decode('utf8')
-
-	category_of_listing = model_for_individual_listing.objects.order_by('-category')
-
-	listing_desc = model_for_individual_listing.objects.order_by('-description')
-	"""
+	
+	listing_price = model_for_individual_listing.objects.order_by('-cost').filter(title__exact=listing_name).values('cost')[0].get('cost')
 
 
 	category_name = urllib.unquote(category_name_url).decode('utf8')
 
+	listing_cond = model_for_individual_listing.objects.order_by('-condition').filter(title__exact=listing_name).values('condition')[0].get('condition')
+	
 
-	# listing_desc = model_for_individual_listing.objects.order_by('-description').get(id=5)
 
-
-	context_dict = {'listing_name':listing_name,'category_name':category_name}
+	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond}
 
 	
 	return render_to_response('classifieds/listing.html',context_dict,context)
@@ -122,8 +117,6 @@ def add_listing(request):
 		form = AdForm()
 
 	return render_to_response('classifieds/add_listing.html',{'form':form},context)
-
-
 
 
 	
