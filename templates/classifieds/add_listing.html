@@ -28,7 +28,8 @@
             <a href="/classifieds/add_listing"><button type="button" class="btn btn-sm btn-success">Add a Listing</button></a>
           </form>
 
-          <p class="navbar-text navbar-right">{%if user.is_active%}Signed in as <a href="#" class="navbar-link">{{user.username}}</a> <a href="/account/logout">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
+          <p class="navbar-text navbar-right" style="
+    display: inline-table;">{%if user.is_active%}Hello, <a href="/account/settings" class="navbar-link">{{user.username}}</a><a href="/messages" class="navbar-link"><span class="glyphicon glyphicon-envelope"></span></a>  <a href="/account/logout" class="navbar-link">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
         </div>
       </div>
 
@@ -36,7 +37,7 @@
     {%endblock%}
         {%block body%}
 
-        <form id="category_form" method="post" action="/classifieds/add_listing/" style="width:300px;margin:0 auto;">
+        <form id="category_form" method="post" action="/classifieds/add_listing/" enctype="multipart/form-data" style="width:300px;margin:0 auto;">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}

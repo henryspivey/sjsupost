@@ -24,7 +24,8 @@
             <a href="/classifieds/add_listing"><button type="button" class="btn btn-sm btn-success">Add a Listing</button></a>
           </form>
 
-          <p class="navbar-text navbar-right">{%if user.is_active%}Signed in as <a href="#" class="navbar-link">{{user.username}}</a> <a href="/account/logout">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
+          <p class="navbar-text navbar-right" style="
+    display: inline-table;">{%if user.is_active%}Hello, <a href="/account/settings" class="navbar-link">{{user.username}}</a><a href="/messages" class="navbar-link"><span class="glyphicon glyphicon-envelope"></span></a>  <a href="/account/logout" class="navbar-link">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
         </div>
       </div>
 
@@ -34,12 +35,41 @@
 
     {%block body%}
 
-    <div style="width:300px;margin:0 auto;"> 
-        <h1>{{listing_name}}</h1>
-        <h2>Price: ${{listing_price}}</h2>
-        <h2>Condition: {{listing_cond}}</h2>
+    <div class="row">
 
-    </div>    
+      <div class="col-md-6"  style="
+    padding-left: 300px; margin-top: -10px;
+">
+
+        <h1>{{listing_name}}</h1>
+
+
+        {% if listing_image%}
+          <img src="{{ MEDIA_URL }}{{listing_image}}" width="300px" height="300px" alt="" /> 
+        {%else%}
+          <h3>Sorry, no image found.</h3>
+        {%endif%}
+
+      </div>
+
+      <div class="col-md-5">
+
+        <h2>Price: ${{listing_price}}</h2>
+
+      </div> 
+
+      <div class="col-md-5">
+          <h2>Condition: {{listing_cond}}</h2>
+          Posted by {{user.username}}
+        </div> 
+     
+    </div>
+
+   
+    
+
+     
+
 
     {%endblock%}
 

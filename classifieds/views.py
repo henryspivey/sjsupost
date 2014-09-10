@@ -89,9 +89,9 @@ def listingz(request,category_name_url,listing_name_url):
 
 	listing_cond = model_for_individual_listing.objects.order_by('-condition').filter(title__exact=listing_name).values('condition')[0].get('condition')
 	
+	listing_image = model_for_individual_listing.objects.order_by('-image').filter(title__exact=listing_name).values('image')[0].get('image')
 
-
-	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond}
+	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond,'listing_image':listing_image}
 
 	
 	return render_to_response('classifieds/listing.html',context_dict,context)
@@ -103,7 +103,7 @@ def add_listing(request):
 
 	# an HTTP Post?
 	if request.method == 'POST':
-		form = AdForm(request.POST)
+		form = AdForm(request.POST,request.FILES)
 
 		if form.is_valid():
 			form.save(commit=True)

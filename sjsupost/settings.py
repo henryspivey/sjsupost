@@ -33,6 +33,12 @@ ACCOUNT_LOGIN_REDIRECT_URL  = "/classifieds"
 ACCOUNT_SIGNUP_REDIRECT_URL = "/classifieds"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/classifieds"
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django_messages.context_processors.inbox', # let's me show the inbox count on every page
+    'django.core.context_processors.media',
+)
 # Application definition
 
 INSTALLED_APPS = (
@@ -54,6 +60,7 @@ INSTALLED_APPS = (
     "sorl.thumbnail",
     'sortable_listview',
     'haystack',
+    'django_messages',
     
     
 
@@ -67,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 )
 
 ROOT_URLCONF = 'sjsupost.urls'

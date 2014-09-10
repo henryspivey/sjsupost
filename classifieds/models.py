@@ -40,7 +40,7 @@ class model_for_individual_listing(models.Model):
 	description =  models.CharField(max_length=1000)
 	cost = models.IntegerField()
 	condition = models.CharField(max_length=10)
-	docfile = models.CharField(max_length=10)
+	image = models.FileField(upload_to="media/%Y/%m/%d",blank=True)
 
 
 	def __unicode__(self):

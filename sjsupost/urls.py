@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r"^u/$", ProfileListView.as_view(), name="profiles_list"),
 
     url(r"^u/(?P<username>[\w\._-]+)/$", ProfileDetailView.as_view(), name="profiles_detail"),
+    url(r'^messages/', include("django_messages.urls"), name='messages'),
+
     
 
 
