@@ -33,10 +33,10 @@ class AdForm(forms.ModelForm):
 
 	except category_of_classifieds.DoesNotExist:
 		category= forms.ChoiceField(choices=CHOICES)
-	title  = forms.CharField(max_length=200,initial="What are you selling?")
+	title  = forms.CharField(max_length=200,initial="What are you selling?",required=True)
 	#description = forms.CharField(widget=forms.Textarea, initial = "Enter price and other relevant information here.")
 	cost = forms.IntegerField(label='$')
-	condition = forms.ChoiceField(choices=CHOICES_FOR_CONDITION,widget=forms.Select())
+	condition = forms.ChoiceField(choices=CHOICES_FOR_CONDITION,widget=forms.Select(),required=False)
 	
 	class Meta:
 		# Provide an association between the ModelForm and a model
