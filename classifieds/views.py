@@ -93,15 +93,26 @@ def get_username_field():
     else:
         return 'username'
 
+
+
+
+def get_username_from_userid(user_id):
+    try:
+        return User.objects.get(id=user_id).username
+    except User.DoesNotExist:
+        return 'Unknown'
+
 def listingz(request,category_name_url,listing_name_url):
 
 	context = RequestContext(request)
 
 	listing_name =  urllib.unquote(listing_name_url).decode('utf8')
-
 	
 	listing_price = model_for_individual_listing.objects.order_by('-cost').filter(title__exact=listing_name).values('cost')[0].get('cost')
 
+	listing_creator = model_for_individual_listing.objects.order_by('-created_by').filter(title__exact=listing_name).values('created_by')[0].get('created_by')
+
+	listing_maker = get_username_from_userid(listing_creator)
 
 	category_name = urllib.unquote(category_name_url).decode('utf8')
 
@@ -109,9 +120,7 @@ def listingz(request,category_name_url,listing_name_url):
 	
 	listing_image = model_for_individual_listing.objects.order_by('-image').filter(title__exact=listing_name).values('image')[0].get('image')
 
-	
-
-	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond,'listing_image':listing_image,}
+	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond,'listing_image':listing_image,'listing_creator':listing_maker}
 
 	
 	return render_to_response('classifieds/listing.html',context_dict,context)
@@ -140,9 +149,7 @@ def add_listing(request):
 
 	return render_to_response('classifieds/add_listing.html',{'form':form},context)
 
-def search(request):
-	if request.metho=='GET':
-		query = request.GET.get('q')
-		return render_to_response(query,context)
+
+	
 
 	

@@ -6,7 +6,3 @@ admin.site.register(ad)
 admin.site.register(model_for_individual_listing)
 # admin.site.register(AdAdmin)
 
-"""
-class AdAdmin(admin.ModelAdmin):
-	list_display = ('category','title')
-"""

@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import BaseUserManager
 from django_messages.utils import format_quote, get_user_model, get_username_field
-import django
-User = get_user_model()
+from django.contrib.auth.models import User
+
+from audit_log.models.fields import CreatingUserField, CreatingSessionKeyField
+
 class category_of_classifieds(models.Model):
 	name = models.CharField(max_length = 20, unique =True)
 
@@ -40,14 +42,21 @@ class model_for_individual_listing(models.Model):
 			(POOR, "Poor")
 		)
 
+	created_by = CreatingUserField(related_name = "created_categories")
+	created_with_session_key = CreatingSessionKeyField()
+
 	username = models.CharField(max_length=1,blank=True)
+
 	category= models.ForeignKey(category_of_classifieds)
+
 	title = models.CharField(max_length=1000,unique=False)
 
-	description =  models.CharField(max_length=1000)
+	description =  models.CharField(max_length=1000,blank=True)
 	cost = models.IntegerField()
 	condition = models.CharField(max_length=10)
 	image = models.FileField(upload_to="media/%Y/%m/%d",blank=True)
+
+
 
 
 	def __unicode__(self):
