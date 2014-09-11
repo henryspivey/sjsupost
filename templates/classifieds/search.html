@@ -1,35 +1,63 @@
 {% extends 'base.html' %}
 
+{%block title%}SJSU Post{%endblock%}
+
+    {%block nav%}
+        <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            
+          </button>
+          <a class="navbar-brand" href="/classifieds">SJSU Post</a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+          <form class="navbar-form navbar-left" role="search" action="/search/?q=">
+            <div class="form-group">
+                
+              <input type="text" name ="q" id= "id_q" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Find it!</button>
+            <a href="/classifieds/add_listing"><button type="button" class="btn btn-sm btn-success">Add a Listing</button></a>
+          </form>
+
+          <p class="navbar-text navbar-right" style="
+    display: inline-table;">{%if user.is_active%}Hello, <a href="/account/settings" class="navbar-link">{{user.username}}</a><a href="/messages" class="navbar-link"><span class="glyphicon glyphicon-envelope"></span></a>  <a href="/account/logout" class="navbar-link">Log out</a>{%else%} <a href="/account/login" class="navbar-link">Login</a> or <a href="/account/signup"> Sign Up</a>{%endif%} </p>
+        </div>
+      </div>
+
+    </nav>
+
+    {%endblock%}
+
+
+
 {% block body %}
-    <h2>Search</h2>
-
-    <form method="get" action=".">
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Search">
-                </td>
-            </tr>
-        </table>
-
+    <h2 style="margin-left:40px;">Search Results</h2>
         {% if query %}
-            <h3>Results</h3>
-
-            {% for result in page.object_list %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-                </p>
+        <div class="row">
+             {% for result in page.object_list %}
+             <div class="col-md-4">
+               
+                    <p style="margin: 0 auto; width:300px;">
+                        <a href="/classifieds/category/{{result.object.category}}/{{result.object.title}}">{{ result.object.title }}</a>
+                    </p>
+            </div>
+        </div>
             {% empty %}
                 <p>No results found.</p>
             {% endfor %}
 
             {% if page.has_previous or page.has_next %}
                 <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                    <ul class="pager" style="position:absolute;bottom:75px;margin-left:40px;">
+                      <li>{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}Previous{% if page.has_previous %}</a>{% endif %}</a></li>
+                      <li>{% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next{% if page.has_next %}</a>{% endif %}</a></li>
+                    </ul>
+                    
+            
+                    
                 </div>
             {% endif %}
         {% else %}
@@ -37,3 +65,11 @@
         {% endif %}
     </form>
 {% endblock %}
+
+ {%block footer%}
+    <div class="footer">
+        <div class="container">
+                <p class="text-muted">Created with &hearts; by Henry Spivey</p>
+        </div>
+    </div>
+    {%endblock%}
