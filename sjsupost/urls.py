@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 
     url(r"^u/(?P<username>[\w\._-]+)/$", ProfileDetailView.as_view(), name="profiles_detail"),
     url(r'^messages/', include("django_messages.urls"), name='messages'),
+    url(r'^search/', include('haystack.urls')),
 
     
 

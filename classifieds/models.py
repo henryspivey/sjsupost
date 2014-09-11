@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib import admin
-
+from django.contrib.auth.models import BaseUserManager
+from django_messages.utils import format_quote, get_user_model, get_username_field
+import django
+User = get_user_model()
 class category_of_classifieds(models.Model):
 	name = models.CharField(max_length = 20, unique =True)
 
@@ -18,6 +21,9 @@ class ad(models.Model):
 	def __unicode__(self):
 		return self.title
 
+
+
+
 class model_for_individual_listing(models.Model):
 
 	LIKE_NEW = 1
@@ -33,7 +39,8 @@ class model_for_individual_listing(models.Model):
 			(FAIR, "Fair"),
 			(POOR, "Poor")
 		)
-	
+
+	username = models.CharField(max_length=1,blank=True)
 	category= models.ForeignKey(category_of_classifieds)
 	title = models.CharField(max_length=1000,unique=False)
 

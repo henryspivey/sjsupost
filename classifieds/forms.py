@@ -41,7 +41,7 @@ class AdForm(forms.ModelForm):
 	class Meta:
 		# Provide an association between the ModelForm and a model
 		model = model_for_individual_listing
-		fields = ('category','title','cost','condition','image')
+		fields = ('category','title','cost','condition','image',)
 
 
 

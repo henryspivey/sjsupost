@@ -6,7 +6,10 @@ from classifieds.forms import AdForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 import urllib
-from classifieds.bing_search import run_query
+import django
+from django_messages.utils import format_quote, get_user_model, get_username_field
+
+User = get_user_model()
 
 
 def encode_url(url):
@@ -75,6 +78,21 @@ def category(request,category_name_url):
 		pass
 	return render_to_response('classifieds/category.html',context_dict,context)
 
+def get_user_model():
+    if django.VERSION[:2] >= (1, 5):
+        from django.contrib.auth import get_user_model
+        return get_user_model()
+    else:
+        from django.contrib.auth.models import User
+        return User
+
+
+def get_username_field():
+    if django.VERSION[:2] >= (1, 5):
+        return get_user_model().USERNAME_FIELD
+    else:
+        return 'username'
+
 def listingz(request,category_name_url,listing_name_url):
 
 	context = RequestContext(request)
@@ -91,11 +109,15 @@ def listingz(request,category_name_url,listing_name_url):
 	
 	listing_image = model_for_individual_listing.objects.order_by('-image').filter(title__exact=listing_name).values('image')[0].get('image')
 
-	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond,'listing_image':listing_image}
+	
+
+	context_dict = {'listing_name':listing_name,'category_name':category_name,'listing_price':listing_price,'listing_cond':listing_cond,'listing_image':listing_image,}
 
 	
 	return render_to_response('classifieds/listing.html',context_dict,context)
 	
+
+
 
 def add_listing(request):
 
@@ -118,5 +140,9 @@ def add_listing(request):
 
 	return render_to_response('classifieds/add_listing.html',{'form':form},context)
 
+def search(request):
+	if request.metho=='GET':
+		query = request.GET.get('q')
+		return render_to_response(query,context)
 
 	
