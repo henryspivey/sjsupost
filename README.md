@@ -1,4 +1,4 @@
 # DormShop
 Classifieds app for SJSU
+Demo available [here](http://spivotron2.pythonanywhere.com)
 
-Demo available [here](spivotron2.pythonanywhere.com)
